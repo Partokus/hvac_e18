@@ -84,8 +84,8 @@ uint8 paLnaChip = PA_LNA_NONE;
 
 const uint8 CODE macRadioDefsTxPwrBare[] =
 {
-  3,  /* tramsmit power level of the first entry */
-  (uint8)(int8)-22, /* transmit power level of the last entry */
+  3,  /* tramsmit power level of the first entry */ 
+  (uint8)(int8)-22, /* transmit power level of the last entry */ 
   /*   3 dBm */   0xF5,   /* characterized as  4.5 dBm in datasheet */
   /*   2 dBm */   0xE5,   /* characterized as  2.5 dBm in datasheet */
   /*   1 dBm */   0xD5,   /* characterized as  1   dBm in datasheet */
@@ -122,7 +122,7 @@ const uint8 CODE macRadioDefsTxPwrBare[] =
 const uint8 CODE macRadioDefsTxPwrCC2591[] =
 {
   20,  /* tramsmit power level of the first entry */
-  (uint8)(int8)10, /* transmit power level of the last entry */
+  (uint8)(int8)10, /* transmit power level of the last entry */ 
   /*  20 dBm */   0xE5,   /* characterized as 20 dBm in datasheet */
   /*  19 dBm */   0xD5,   /* characterized as 19 dBm in datasheet */
   /*  18 dBm */   0xC5,   /* characterized as 18 dBm in datasheet */
@@ -216,10 +216,10 @@ const uint8 CODE macRadioDefsTxPwrSE2431L[] =
 #endif
 
 const uint8 CODE macRadioDefsTxPwrBare0x95[] =
-{
+{  
   7,  /* tramsmit power level of the first entry */
-  (uint8)(int8)-20, /* transmit power level of the last entry */
-  /*   7 dBm */   0xFD,   /* characterized as  7   dBm in datasheet */
+  (uint8)(int8)-20, /* transmit power level of the last entry */ 
+  /*   7 dBm */   0xFD,   /* characterized as  7   dBm in datasheet */ 
   /*   6 dBm */   0xFD,   /* clip to 7 dBm */
   /*   5 dBm */   0xFD,   /* clip to 7 dBm */
   /*   4 dBm */   0xEC,   /* characterized as  4.5 dBm in datasheet */
@@ -267,19 +267,19 @@ const uint8 CODE *const CODE macRadioDefsTxPwrTables[] =
 #endif
 
 #if defined HAL_PA_LNA || defined MAC_RUNTIME_CC2591
-  macRadioDefsTxPwrCC2591,
+  macRadioDefsTxPwrCC2591, 
 #endif
 
 #if defined HAL_PA_LNA_CC2590 || defined MAC_RUNTIME_CC2590
-  macRadioDefsTxPwrCC2590,
+  macRadioDefsTxPwrCC2590, 
 #endif
 
 #if defined HAL_PA_LNA_SE2431L || defined MAC_RUNTIME_SE2431L
-  macRadioDefsTxPwrSE2431L,
+  macRadioDefsTxPwrSE2431L, 
 #endif
 
 #if defined HAL_PA_LNA_CC2592 || defined MAC_RUNTIME_CC2592
-  macRadioDefsTxPwrCC2592,
+  macRadioDefsTxPwrCC2592, 
 #endif
 };
 
@@ -558,7 +558,7 @@ MAC_INTERNAL_API void macRadioTurnOnPower(void)
     {
       /* P1_1 -> PAEN */
       RFC_OBS_CTRL0 = RFC_OBS_CTRL_PA_PD_INV;
-      OBSSEL1       = OBSSEL_OBS_CTRL0;
+      OBSSEL1       = OBSSEL_OBS_CTRL0; 
       
       /* P1_0 -> EN (LNA control) */
       RFC_OBS_CTRL1 = RFC_OBS_CTRL_LNAMIX_PD_INV;
