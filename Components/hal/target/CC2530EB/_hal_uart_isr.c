@@ -346,7 +346,7 @@ uint16 HalUARTReadISR(uint8 *buf, uint16 len)
   uint16 cnt = 0;
  
 #ifdef UART_WAKE_UP
-  if (isrCfg.rxBuf[isrCfg.rxHead] == 0xAA) // ATMEEX: if first byte of data equal 0xAA - ignore it.
+  if (isrCfg.rxBuf[isrCfg.rxHead] == 0xAA) 
   {
     isrCfg.rxHead++; 
     if (isrCfg.rxHead >= HAL_UART_ISR_RX_MAX)
