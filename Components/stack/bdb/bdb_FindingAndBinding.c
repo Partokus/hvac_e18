@@ -45,7 +45,7 @@
 #include "ZDObject.h"
 #include "bdb_interface.h"
 #include "AddrMgr.h"
-   
+
 #if (BDB_FINDING_BINDING_CAPABILITY_ENABLED==1)   
    
 /*********************************************************************
@@ -733,7 +733,7 @@ static ZStatus_t bdb_zclFindingBindingAddBindEntry( byte SrcEndpInt,
                                   zAddrType_t *DstAddr, byte DstEndpInt, uint8 addBind, uint8 isClusterOutput )
 {
   uint8 status;
-
+  
   if ( bdb_FindIfAppCluster ( BindClusterId, isClusterOutput ) != SUCCESS )
   {
     return ( ZApsFail ); // No App cluster

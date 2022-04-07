@@ -732,13 +732,13 @@ afStatus_t AF_DataRequest( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
 
   if ( options & AF_SUPRESS_ROUTE_DISC_NETWORK )
   {
-    req.discoverRoute = DISC_ROUTE_INITIATE;
+    req.discoverRoute = DISC_ROUTE_INITIATE;  
   }
   else
   {
     req.discoverRoute = AF_DataRequestDiscoverRoute;
   }
-
+  
   req.transID       = *transID;
   req.srcEP         = srcEP->endPoint;
   req.dstEP         = dstAddr->endPoint;
@@ -790,7 +790,7 @@ afStatus_t AF_DataRequest( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
       stat = APSDE_DataReq( &req );
     }
   }
-
+  
   /*
    * If this is an EndPoint-to-EndPoint message on the same device, it will not
    * get added to the NWK databufs. So it will not go OTA and it will not get

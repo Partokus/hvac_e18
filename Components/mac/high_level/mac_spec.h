@@ -180,7 +180,7 @@
 #define MAC_SYMBOLS_PER_OCTET           2
 
 /* Maximum phy frame size in bytes */
-#define MAC_A_MAX_PHY_PACKET_SIZE       127
+#define MAC_A_MAX_PHY_PACKET_SIZE       127 
 
 /* Phy RX <--> TX turnaround time in symbols */
 #define MAC_A_TURNAROUND_TIME           12

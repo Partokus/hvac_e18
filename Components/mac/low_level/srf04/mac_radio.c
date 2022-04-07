@@ -243,7 +243,7 @@ MAC_INTERNAL_API uint8 macRadioSetTxPower(uint8 txPower)
 
   /* abstracted power table selection */
   MAC_RADIO_SELECT_PTABLE(pTable);
-
+  
   /* if the selected dBm is out of range, use the closest available */
   if ((int8)txPower > (int8)pTable[MAC_RADIO_DEFS_TBL_TXPWR_FIRST_ENTRY])
   {
