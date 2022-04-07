@@ -337,15 +337,15 @@ void halSleep( uint32 osal_timeout )
        */
 
 #if ((defined HAL_KEY) && (HAL_KEY == TRUE))
-      /* get peripherals ready for sleep */
+      /* get peripherals ready for sleep */ 
       HalKeyEnterSleep();
 #endif
 
 #ifdef HAL_SLEEP_DEBUG_LED
-      HAL_TURN_OFF_LED3();
+      HAL_TURN_OFF_LED3(); 
 #else
       /* use this to turn LEDs off during sleep */
-      HalLedEnterSleep();
+      HalLedEnterSleep(); 
 #endif
       
       if(timeout > maxSleepLoopTime)
@@ -391,15 +391,17 @@ void halSleep( uint32 osal_timeout )
         /* save interrupt enable registers and disable all interrupts */
         HAL_SLEEP_IE_BACKUP_AND_DISABLE(ien0, ien1, ien2);
         HAL_ENABLE_INTERRUPTS();
-
+        
+        HalUARTSuspend(); // ATMEEX: UART turn off
+        P0IFG = 0; P0IF = 0; P0IEN |= BV(2); // ATMEEX: uart_wake_up_interrupt_enable
         /* set CC2530 power mode, interrupt is disabled after this function
          * Note that an ISR (that could wake up from power mode) which runs
          * between the previous instruction enabling interrupts and before
          * power mode is set would switch the halSleepPconValue so that
          * power mode shall not be entered in such a case. 
          */
-        
-        HAL_SLEEP_SET_POWER_MODE();
+
+        HAL_SLEEP_SET_POWER_MODE(); 
         
         /* the interrupt is disabled - see halSetSleepMode() */
         
