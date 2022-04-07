@@ -133,7 +133,11 @@ static CODE const macPib_t macPibDefaults =
   FALSE,                                      /* securityEnabled */
 
   /* Proprietary */
-  0,                                          /* phyTransmitPower */
+#if (HAL_PA_LNA)
+  19,                                         /* phyTransmitPower */ 
+#else
+  3,                                          /* phyTransmitPower */ 
+#endif                                              
   MAC_CHAN_11,                                /* logicalChannel */
   {0, SADDR_MODE_EXT},                        /* extendedAddress */
   1,                                          /* altBe */
