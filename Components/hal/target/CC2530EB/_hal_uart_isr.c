@@ -344,7 +344,18 @@ static void HalUARTOpenISR(halUARTCfg_t *config)
 uint16 HalUARTReadISR(uint8 *buf, uint16 len)
 {
   uint16 cnt = 0;
-
+ 
+#ifdef UART_WAKE_UP
+  if (isrCfg.rxBuf[isrCfg.rxHead] == 0xAA) // ATMEEX: if first byte of data equal 0xAA - ignore it.
+  {
+    isrCfg.rxHead++; 
+    if (isrCfg.rxHead >= HAL_UART_ISR_RX_MAX)
+    {
+      isrCfg.rxHead = 0;
+    }
+    len--;
+  }  
+#endif
   while ((isrCfg.rxHead != isrCfg.rxTail) && (cnt < len))
   {
     *buf++ = isrCfg.rxBuf[isrCfg.rxHead++];
@@ -569,7 +580,7 @@ HAL_ISR_FUNCTION( halUart1TxIsr, UTX1_VECTOR )
   if (isrCfg.txHead == isrCfg.txTail)
   {
     IEN2 &= ~UTXxIE;
-    isrCfg.txMT = 1;
+    isrCfg.txMT = 1;   
   }
   else
   {
