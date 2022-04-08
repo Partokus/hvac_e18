@@ -51,7 +51,7 @@ extern "C"
  * INCLUDES
  */
 #include "zcl.h"
-
+#include "hal_types.h"
 /*********************************************************************
  * CONSTANTS
  */
@@ -61,14 +61,55 @@ extern "C"
 #define LIGHT_ON                        0x01
 
 // Events for the sample app
-#define SAMPLEAPP_END_DEVICE_REJOIN_EVT   0x0001
+#define SAMPLEAPP_END_DEVICE_REJOIN_EVT                0x01
+#define ATMEEX_UART_DATA_READY_SERIAL0                 0x02
+#define ATMEEX_UART_DATA_READY_SERIAL1                 0x04
+#define ATMEEX_POWER_SAVING_MODE_ON                    0x08
+#define ATMEEX_SET_DEFAULT_POLL_RATE_ON_START          0x10
+#define SAMPLESW_TOGGLE_TEST_EVT                       0x20
+#define SEND_GET_REQUEST                               0x40
+#define STOP_OTA_FOR_AVR_TIMER                         0x80
 
+#define SEND_MESSAGE_BY_BUTTONS_DELAY                  400
+#define SEND_MESSAGE_BY_MODE_BUTTON_DELAY              2500
+  
+#define OTA_STOP_DELAY                                 30000
+#define DELAY_BEFORE_SLEEP                             40
+
+
+  
 // UI Events
-#define SAMPLEAPP_LCD_AUTO_UPDATE_EVT       0x0010  
-#define SAMPLEAPP_KEY_AUTO_REPEAT_EVT       0x0020  
+//#define SAMPLEAPP_LCD_AUTO_UPDATE_EVT              0x0010  
+//#define SAMPLEAPP_KEY_AUTO_REPEAT_EVT              0x0020 
 
-#define SAMPLEAPP_END_DEVICE_REJOIN_DELAY 10000
 
+#define SAMPLEAPP_END_DEVICE_REJOIN_DELAY        10000
+#define SAMPLEAPP_END_DEVICE_REJOIN_SHORT_DELAY  1000
+#define SEND_GET_REQUEST_DEFAULT_PERIOD          4000  
+#define POLL_RATE_FOR_MOBILE_APP_DELAY           10000
+// Commands
+#define COMMAND_SEND                            0x01
+#define COMMAND_GET                             0x02
+
+// For powermode
+#define ONOFFCB_MASK                            0x01 // mask for permit sleep mode inside zclSampleLight_OnOffCB function
+#define INTERRUPT_WAKE_UP_MASK                  0x02 // mask for permit sleep mode inside interrupt for wake up E18
+#define COMMAND_FROM_AVR_MASK                   0x04
+#define OTA_FOR_AVR_MASK                        0x08
+#define atmeex_set_sleep_mask(x) atmeex_mask |= (x)
+#define atmeex_clear_sleep_mask(x) atmeex_mask &= ~((x))
+
+
+// Pressed buttons
+#define ON_OFF_BUTTON 41
+#define DAMPER_BUTTON 42 // (IN_EX)
+#define PID_BUTTON 43
+#define MODE_BUTTON 44
+#define COND_AND_BREEZER_BUTTONS 45
+#define HUMIDIFIER_BUTTONS 46
+#define TEMP_BUTTONS 47
+  
+static uint8 short_or_default_delay_counter = 0; // if < 10 - short delay, if >= 10 - default delay. need for fast rejoin to parent for first time if connection have lost
 /*********************************************************************
  * MACROS
  */
@@ -87,6 +128,9 @@ extern CONST zclAttrRec_t zclSampleSw_Attrs[];
 
 extern uint8  zclSampleSw_OnOff;
 
+// OnOff attributes
+extern bool zclSampleLight_OnOff;
+extern uint16 tempData;
 extern uint16 zclSampleSw_IdentifyTime;
 
 extern uint8 zclSampleSw_OnOffSwitchType;
@@ -114,8 +158,16 @@ extern UINT16 zclSampleSw_event_loop( byte task_id, UINT16 events );
  */
 extern void zclSampleSw_ResetAttributesToDefaultValues(void); //implemented in zcl_samplesw_data.c
 
+
+
+
 /*********************************************************************
 *********************************************************************/
+
+
+
+
+
 
 #ifdef __cplusplus
 }

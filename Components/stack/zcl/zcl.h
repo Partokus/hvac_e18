@@ -67,8 +67,8 @@ extern "C"
  * CONSTANTS
  */
 
-#define ZCL_DATABUF_SEND                                     0x0020  
-  
+#define ZCL_DATABUF_SEND                                     0x0020
+
 // General Clusters
 #define ZCL_CLUSTER_ID_GEN_BASIC                             0x0000
 #define ZCL_CLUSTER_ID_GEN_POWER_CFG                         0x0001
@@ -115,7 +115,7 @@ extern "C"
 
 // HVAC Clusters
 #define ZCL_CLUSTER_ID_HVAC_PUMP_CONFIG_CONTROL              0x0200
-#define ZCL_CLUSTER_ID_HVAC_THERMOSTAT                       0x0201
+#define ZCL_CLUSTER_ID_HVAC_THERMOSTAT                       0x0201 
 #define ZCL_CLUSTER_ID_HVAC_FAN_CONTROL                      0x0202
 #define ZCL_CLUSTER_ID_HVAC_DIHUMIDIFICATION_CONTROL         0x0203
 #define ZCL_CLUSTER_ID_HVAC_USER_INTERFACE_CONFIG            0x0204

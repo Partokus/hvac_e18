@@ -106,6 +106,10 @@ uint8 zclSampleSw_DeviceEnable = DEVICE_ENABLED;
 // Identify Cluster
 uint16 zclSampleSw_IdentifyTime = 0;
 
+// On/Off Cluster
+bool  zclSampleLight_OnOff = 1;
+
+
 /*********************************************************************
  * ATTRIBUTE DEFINITIONS - Uses REAL cluster IDs
  */
@@ -115,6 +119,7 @@ uint16 zclSampleSw_IdentifyTime = 0;
  
 CONST zclAttrRec_t zclSampleSw_Attrs[] =
 {
+  /*
   // *** General Basic Cluster Attributes ***
   {
     ZCL_CLUSTER_ID_GEN_BASIC,
@@ -256,16 +261,28 @@ CONST zclAttrRec_t zclSampleSw_Attrs[] =
       (void *)&zclSampleSw_clusterRevision_all
     }
   },
-  // *** On / Off Cluster *** //
+*/
+  // *** On/Off Cluster Attributes ***
   {
     ZCL_CLUSTER_ID_GEN_ON_OFF,
-    {  // Attribute record
+    { // Attribute record
+      ATTRID_ON_OFF,
+      ZCL_DATATYPE_BOOLEAN,
+      ACCESS_CONTROL_READ,
+      (void *)&zclSampleLight_OnOff
+    }
+  },
+  // *** On/Off Cluster Attributes ***
+  {
+    ZCL_CLUSTER_ID_GEN_ON_OFF,
+    { // Attribute record
       ATTRID_CLUSTER_REVISION,
       ZCL_DATATYPE_UINT16,
       ACCESS_CONTROL_READ | ACCESS_CLIENT,
       (void *)&zclSampleSw_clusterRevision_all
     }
   },
+  /*
   // *** Groups Cluster *** //
   {
     ZCL_CLUSTER_ID_GEN_GROUPS,
@@ -275,7 +292,8 @@ CONST zclAttrRec_t zclSampleSw_Attrs[] =
       ACCESS_CONTROL_READ | ACCESS_CLIENT,
       (void *)&zclSampleSw_clusterRevision_all
     }
-  }
+  },
+*/
 };
 
 uint8 CONST zclSampleSw_NumAttributes = ( sizeof(zclSampleSw_Attrs) / sizeof(zclSampleSw_Attrs[0]) );
@@ -287,18 +305,23 @@ uint8 CONST zclSampleSw_NumAttributes = ( sizeof(zclSampleSw_Attrs) / sizeof(zcl
 // specific cluster IDs.
 const cId_t zclSampleSw_InClusterList[] =
 {
-  ZCL_CLUSTER_ID_GEN_BASIC,
-  ZCL_CLUSTER_ID_GEN_IDENTIFY,
-  ZCL_CLUSTER_ID_GEN_ON_OFF_SWITCH_CONFIG
+  //ZCL_CLUSTER_ID_GEN_BASIC,
+  //ZCL_CLUSTER_ID_GEN_IDENTIFY,
+  ZCL_CLUSTER_ID_GEN_ON_OFF,
+  //ZCL_CLUSTER_ID_GEN_ON_OFF_SWITCH_CONFIG,
+  //ZCL_CLUSTER_ID_MS_TEMPERATURE_MEASUREMENT,
+  //ZCL_CLUSTER_ID_ATMEEX
 };
 
 #define ZCLSAMPLESW_MAX_INCLUSTERS    ( sizeof( zclSampleSw_InClusterList ) / sizeof( zclSampleSw_InClusterList[0] ))
 
 const cId_t zclSampleSw_OutClusterList[] =
 {
-  ZCL_CLUSTER_ID_GEN_IDENTIFY,
+  //ZCL_CLUSTER_ID_GEN_IDENTIFY,
   ZCL_CLUSTER_ID_GEN_ON_OFF,
-  ZCL_CLUSTER_ID_GEN_GROUPS,
+  //ZCL_CLUSTER_ID_GEN_GROUPS,
+  //ZCL_CLUSTER_ID_MS_TEMPERATURE_MEASUREMENT,
+  //ZCL_CLUSTER_ID_ATMEEX
 };
 
 #define ZCLSAMPLESW_MAX_OUTCLUSTERS   ( sizeof( zclSampleSw_OutClusterList ) / sizeof( zclSampleSw_OutClusterList[0] ))

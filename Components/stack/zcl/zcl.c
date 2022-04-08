@@ -1152,7 +1152,7 @@ ZStatus_t zcl_SendCommand( uint8 srcEP, afAddrType_t *destAddr,
   if ( ( epDesc->simpleDesc == NULL ) ||
        ( zcl_DeviceOperational( srcEP, clusterID, hdr.fc.type,
                                 cmd, epDesc->simpleDesc->AppProfId ) == FALSE ) )
-  {
+  { 
     return ( ZFailure ); // EMBEDDED RETURN
   }
 
@@ -1202,7 +1202,7 @@ ZStatus_t zcl_SendCommand( uint8 srcEP, afAddrType_t *destAddr,
 
     // Fill in the command frame
     zcl_memcpy( pBuf, cmdFormat, cmdFormatLen );
-
+    
     status = AF_DataRequest( destAddr, epDesc, clusterID, msgLen, msgBuf,
                              &APS_Counter, options, zcl_radius );
     zcl_mem_free ( msgBuf );

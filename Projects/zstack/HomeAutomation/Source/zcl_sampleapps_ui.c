@@ -270,9 +270,16 @@
 #include "zdapp.h"
 #include "zcl_sampleapps_ui.h"
 
+#include "hal_sleep.h"
 #ifdef BDB_TL_TARGET
   #include "bdb_touchlink_target.h"
 #endif
+#include "BindingTable.h"
+
+
+
+
+
 
 
 /*********************************************************************
@@ -383,6 +390,9 @@ enum
 static void uiUintToString(uint32 value, char * str, uint8 base, uint8 num_of_digists, bool pad0, bool reverse);
 static void uiArrayToString(uint8 * buf, char * str, uint8 num_of_digists, bool big_endian);
 static void uiCreateChannelMaskString(uint32 channel_mask, char * str);
+
+
+
 
 
 #ifdef BDB_TL_TARGET
@@ -1894,7 +1904,9 @@ static void uiProcessIdentifyTimeChange( uint8 endpoint )
  */
 static void uiProcessBindNotification( bdbBindNotificationData_t *data )
 {
+  
   //note: 'data' argument contains information about the new binding, which can be useful for the user's application
+  
 
   if (FBMatchesFound < 255)
   {
@@ -1937,4 +1949,16 @@ void UI_DeviceStateUpdated(devStates_t NwkState)
 
   UI_UpdateLcd();
 }
+
+
+
+
+
+
+
+
+
+
+
+
 

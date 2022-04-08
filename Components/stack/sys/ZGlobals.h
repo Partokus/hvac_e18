@@ -272,7 +272,7 @@ extern "C" {
 //Timeout after which an EndDevice will be removed from from the indirect MAC messages queue
    // NOTE: End devices which poll rate is slower than this will not receive the leave request
 #if !defined ( NWK_END_DEVICE_LEAVE_TIMEOUT )   
-  #define NWK_END_DEVICE_LEAVE_TIMEOUT 9  
+  #define NWK_END_DEVICE_LEAVE_TIMEOUT 9 
 #endif
 
 // Value used by END DEVICE when sending End Device Timeout Request

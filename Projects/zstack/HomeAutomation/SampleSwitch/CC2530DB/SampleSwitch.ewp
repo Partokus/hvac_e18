@@ -2621,12 +2621,18 @@
                 </option>
                 <option>
                     <name>CCDefines</name>
+                    <state>xxHAL_PA_LNA_CC2592</state>
                     <state>SECURE=1</state>
                     <state>TC_LINKKEY_JOIN</state>
                     <state>NV_INIT</state>
+                    <state>HAL_KEY=FALSE</state>
+                    <state>HAL_LED=FALSE</state>
+                    <state>HAL_LCD=FALSE</state>
+                    <state>HAL_ADC=FALSE</state>
                     <state>NV_RESTORE</state>
-                    <state>xPOWER_SAVING</state>
-                    <state>NWK_AUTO_POLL</state>
+                    <state>POWER_SAVING</state>
+                    <state>NWK_AUTOPOLL</state>
+                    <state>POLL_RATE=0</state>
                     <state>xZTOOL_P1</state>
                     <state>xMT_TASK</state>
                     <state>xMT_APP_FUNC</state>
@@ -2634,15 +2640,25 @@
                     <state>xMT_ZDO_FUNC</state>
                     <state>xMT_ZDO_MGMT</state>
                     <state>xMT_APP_CNF_FUNC</state>
-                    <state>LCD_SUPPORTED=DEBUG</state>
                     <state>MULTICAST_ENABLED=FALSE</state>
+                    <state>ZCL_GROUPS</state>
                     <state>ZCL_READ</state>
-                    <state>ZCL_DISCOVER</state>
                     <state>ZCL_WRITE</state>
                     <state>ZCL_BASIC</state>
                     <state>ZCL_IDENTIFY</state>
                     <state>ZCL_ON_OFF</state>
-                    <state>ZCL_GROUPS</state>
+                    <state>HAL_UART=TRUE</state>
+                    <state>HAL_UART_ISR=1</state>
+                    <state>HAL_UART_ISR_RX_MAX=128</state>
+                    <state>HAL_UART_DMA=0</state>
+                    <state>HAL_UART_DMA_RX_MAX=128</state>
+                    <state>xBDB_REPORTING</state>
+                    <state>xZCL_REPORTING_DEVICE</state>
+                    <state>xZCL_REPORT_DESTINATION_DEVICE</state>
+                    <state>xZCL_REPORT_CONFIGURING_DEVICE</state>
+                    <state>APS_DEFAULT_NONMEMBER_RADIUS=30</state>
+                    <state>xDISABLE_DISCOVER_ROUTE</state>
+                    <state>UART_WAKE_UP</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -3106,11 +3122,11 @@
                 </option>
                 <option>
                     <name>XOutOverride</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>OutputFile</name>
-                    <state>SampleSwitch.d51</state>
+                    <state>SampleSwitch.hex</state>
                 </option>
                 <option>
                     <name>OutputFormat</name>
@@ -3284,7 +3300,7 @@
                 </option>
                 <option>
                     <name>DebugInformation</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>RuntimeControl</name>
@@ -5806,6 +5822,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\Source\zcl_sampleapps_ui.c</name>
+            <excluded>
+                <configuration>EndDeviceEB</configuration>
+            </excluded>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\Source\zcl_sampleapps_ui.h</name>
@@ -5850,7 +5869,7 @@
             <name>$PROJ_DIR$\..\..\..\..\..\Components\stack\bdb\bdb_touchlink.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\..\..\Components\stack\bdb\bdb_touchlink.h</name>
+            <name>$PROJ_DIR$\..\..\..\..\..\Components\stack\bdb\bdb_touchLink.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\..\..\Components\stack\bdb\bdb_touchlink_initiator.c</name>

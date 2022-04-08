@@ -1057,7 +1057,7 @@ void ZDApp_DeviceAuthEvt( void )
         || ( (ZDO_Config_Node_Descriptor.CapabilityFlags & CAPINFO_RCVR_ON_IDLE)
           && (zgChildAgingEnable == TRUE) ) )
     {
-      NLME_SetPollRate( ZDApp_SavedPollRate );
+      NLME_SetPollRate( ZDApp_SavedPollRate );     
     }
   }
   else

@@ -2221,7 +2221,7 @@ ZStatus_t zclClosures_SendDoorLockRequest( uint8 srcEP, afAddrType_t *dstAddr, u
 
   pBuf = zcl_mem_alloc( calculatedBufSize );
   if ( !pBuf )
-  {
+  {    
     return ( ZMemError );  // no memory
   }
 
