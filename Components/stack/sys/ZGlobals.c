@@ -266,7 +266,7 @@ uint16 zgApsMinDupRejTableSize = APS_DUP_REJ_ENTRIES;
 // If TRUE, preConfigKey should be configured on all devices on the network
 // If false, it is configured only on the coordinator and sent to other
 // devices upon joining.
-uint8 zgPreConfigKeys = FALSE;
+uint8 zgPreConfigKeys = TRUE;
 
 // The type of link key in use.  This will determine the security
 // policies associated with sending and receiving APS messages.
@@ -604,10 +604,10 @@ uint8 zgInit( void )
   // Do we want to default the Config state values
   if ( zgReadStartupOptions() & ZCD_STARTOPT_DEFAULT_CONFIG_STATE )
   {
-    setDefault = TRUE;
+    setDefault = TRUE; 
   }
 #else
-    setDefault = TRUE;
+    setDefault = TRUE; 
 #endif
   
   status = osal_nv_item_init(ZCD_NV_BDBNODEISONANETWORK,sizeof(bdbAttributes.bdbNodeIsOnANetwork),&bdbAttributes.bdbNodeIsOnANetwork);
