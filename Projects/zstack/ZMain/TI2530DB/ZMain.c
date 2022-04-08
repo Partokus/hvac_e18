@@ -98,7 +98,8 @@ int main( void )
 
   // Initialize the MAC
   ZMacInit();
-
+  
+  ZMacSetTransmitPower(TX_PWR_PLUS_19);
   // Determine the extended address
   zmain_ext_addr();
 
