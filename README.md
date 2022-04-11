@@ -100,24 +100,24 @@ ____
 
 Было:
 ```
-		/* Prep CC2530 power mode */
-        HAL_SLEEP_PREP_POWER_MODE(halPwrMgtMode);
+/* Prep CC2530 power mode */
+HAL_SLEEP_PREP_POWER_MODE(halPwrMgtMode);
 
-        /* save interrupt enable registers and disable all interrupts */
-        HAL_SLEEP_IE_BACKUP_AND_DISABLE(ien0, ien1, ien2);
-        HAL_ENABLE_INTERRUPTS();
+/* save interrupt enable registers and disable all interrupts */
+HAL_SLEEP_IE_BACKUP_AND_DISABLE(ien0, ien1, ien2);
+HAL_ENABLE_INTERRUPTS();
 ```
 Стало:
 ```
-		/* Prep CC2530 power mode */
-        HAL_SLEEP_PREP_POWER_MODE(halPwrMgtMode);
+/* Prep CC2530 power mode */
+HAL_SLEEP_PREP_POWER_MODE(halPwrMgtMode);
 
-        /* save interrupt enable registers and disable all interrupts */
-        HAL_SLEEP_IE_BACKUP_AND_DISABLE(ien0, ien1, ien2);
-        HAL_ENABLE_INTERRUPTS();
+/* save interrupt enable registers and disable all interrupts */
+HAL_SLEEP_IE_BACKUP_AND_DISABLE(ien0, ien1, ien2);
+HAL_ENABLE_INTERRUPTS();
         
-        HalUARTSuspend(); // ATMEEX: UART turn off
-        P0IFG = 0; P0IF = 0; P0IEN |= BV(2); // ATMEEX: uart_wake_up_interrupt_enable,
+HalUARTSuspend(); // ATMEEX: UART turn off
+P0IFG = 0; P0IF = 0; P0IEN |= BV(2); // ATMEEX: uart_wake_up_interrupt_enable,
 ```
 ____
 3. В файле **Z-Stack_3.0.2\Components\mac\high_level\mac_pib.c** в static CODE const macPib_t macPibDefaults =
