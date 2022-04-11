@@ -1,14 +1,60 @@
 # Z-Stack 3.0.2
 ____
-# Инструкция по сборке и компиляции проекта для вывода прошивки для:
+# Инструкция по сборке и компиляции проекта для:
 1. A7   - Airnanny       - Coordinator
-2. HVAC - Conditioner    - Coordinator
-3. HVAC - Breezer        - Router
-4. HVAC - Humidifier     - Router
-5. HVAC - Remote control - End Device
+2. A7   - Remote control - End Device
+3. HVAC - Conditioner    - Coordinator
+4. HVAC - Breezer        - Router
+5. HVAC - Humidifier     - Router
+6. HVAC - Remote control - End Device
 ____
+Для работы с проектом понадобятся:
+- IAR Embedded Workbench IDE - 8051;
+- Z-Stack 3.0.2 с сайта ti.com;
+- Репозиторий "Z-Stack_3_0_2_A7_AND_HVAC" в Bitbucket компании ATMEEX.
+
+Z-Stack 3.0.2 и "Z-Stack_3_0_2_A7_AND_HVAC" необходимо слить в одно целое.
+
+Проект для всех устройств, кроме пульта, находится по этому пути: Z-Stack 3.0.2\Projects\zstack\HomeAutomation\SampleLight\CC2530DB\SampleLight.eww
+Проект для пульта находится по следующему пути: Z-Stack 3.0.2\Projects\zstack\HomeAutomation\SampleSwitch\CC2530DB\SampleSwitch.eww
+____
+Чтобы скомпилировать проект для отдельного устройства необходимо варьировать типами устройства (CoordinatorEB, RouterEB и EndDeviceEB) и Defined Symbols в Preprocessor (правой кнопкой на имя проекта ( например, SampleLight - CoordinatorEB) -> Options -> C/C++ Compiler -> Preprocessor -> Defined Symbols).
+Для пультов от А7 и HVAC одна и та же прошивка.
+
+Компиляция проекта для A7 - AIRNANNY:
+Проект: SampleLight.eww
+Тип устройства: CoordinatorEB
+Defined symbols:
+AIRNANNY
+HAL_UART_ISR=2
+HAL_UART_DMA=1
+
+Компиляция проекта для HVAC - Conditioner:
+Проект: SampleLight.eww
+Тип устройства: CoordinatorEB
+Defined symbols:
+xxAIRNANNY
+HAL_UART_ISR=2
+HAL_UART_DMA=0
+
+Компиляция проекта для HVAC - Breezer:
+Проект: SampleLight.eww
+Тип устройства: RouterEB
+Defined symbols:
+xxATMEEX_HUMIDIFIER_ROUTER
+
+Компиляция проекта для HVAC - Humidifier:
+Проект: SampleLight.eww
+Тип устройства: RouterEB
+Defined symbols:
+ATMEEX_HUMIDIFIER_ROUTER
+
+Компиляция проекта для A7 и HVAC - Remote control:
+Проект: SampleSwitch.eww
+Тип устройства: EndDeviceEB
 
 
+ 
 
 Изменённые файлы SDK:
 1. Z-Stack_3.0.2\Components\hal\target\CC2530EB\_hal_uart_isr.c
