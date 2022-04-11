@@ -305,7 +305,7 @@
                 </option>
                 <option>
                     <name>CCDefines</name>
-                    <state>xxHAL_PA_LNA</state>
+                    <state>HAL_PA_LNA</state>
                     <state>xxHAL_PA_LNA_CC2592</state>
                     <state>AIRNANNY</state>
                     <state>HAL_UART_ISR=2</state>
@@ -1475,7 +1475,7 @@
                 <option>
                     <name>CCDefines</name>
                     <state>ATMEEX_HUMIDIFIER_ROUTER</state>
-                    <state>xxHAL_PA_LNA</state>
+                    <state>HAL_PA_LNA</state>
                     <state>HAL_UART=TRUE</state>
                     <state>HAL_UART_ISR=1</state>
                     <state>HAL_UART_ISR_RX_MAX=128</state>
