@@ -11,16 +11,17 @@ ____
 Для работы с проектом понадобятся:
 - IAR Embedded Workbench IDE - 8051;
 - Z-Stack 3.0.2 с сайта ti.com;
-- Репозиторий "Main_E18" в Bitbucket компании ATMEEX.
+- Репозиторий "Main_E18" в Bitbucket компании ATMEEX в проекте "Hvac".
 
 Свежоскачанный Z-Stack 3.0.2 и "Main_E18" необходимо слить в одно целое.
 
-Проект для всех устройств, кроме пульта, находится по этому пути: Z-Stack 3.0.2\Projects\zstack\HomeAutomation\SampleLight\CC2530DB\SampleLight.eww
+Проект для всех устройств, кроме пульта, находится по данному пути: **Z-Stack 3.0.2\Projects\zstack\HomeAutomation\SampleLight\CC2530DB\SampleLight.eww**
 
-Проект для пульта находится по следующему пути: Z-Stack 3.0.2\Projects\zstack\HomeAutomation\SampleSwitch\CC2530DB\SampleSwitch.eww
+Проект для пульта находится по следующему пути: **Z-Stack 3.0.2\Projects\zstack\HomeAutomation\SampleSwitch\CC2530DB\SampleSwitch.eww**
 ____
 Чтобы скомпилировать проект для отдельного устройства необходимо варьировать типами устройств (CoordinatorEB, RouterEB и EndDeviceEB) и Defined Symbols в Preprocessor (правой кнопкой на имя проекта (например, SampleLight - CoordinatorEB) -> Options -> C/C++ Compiler -> Preprocessor -> Defined Symbols).
-Для пультов от А7 и HVAC одна и та же прошивка.
+
+**Для пультов от А7 и HVAC одна и та же прошивка**.
 
 Компиляция проекта для `A7 - AIRNANNY`:
 - Проект: **SampleLight.eww**
