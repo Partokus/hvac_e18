@@ -11,9 +11,9 @@ ____
 Для работы с проектом понадобятся:
 - IAR Embedded Workbench IDE - 8051;
 - Z-Stack 3.0.2 с сайта ti.com;
-- Репозиторий "Z-Stack_3_0_2_A7_AND_HVAC" в Bitbucket компании ATMEEX.
+- Репозиторий "Main_E18" в Bitbucket компании ATMEEX.
 
-Z-Stack 3.0.2 и "Z-Stack_3_0_2_A7_AND_HVAC" необходимо слить в одно целое.
+Свежоскачанный Z-Stack 3.0.2 и "Main_E18" необходимо слить в одно целое.
 
 Проект для всех устройств, кроме пульта, находится по этому пути: Z-Stack 3.0.2\Projects\zstack\HomeAutomation\SampleLight\CC2530DB\SampleLight.eww
 Проект для пульта находится по следующему пути: Z-Stack 3.0.2\Projects\zstack\HomeAutomation\SampleSwitch\CC2530DB\SampleSwitch.eww
@@ -24,7 +24,7 @@ ____
 Компиляция проекта для A7 - AIRNANNY:
 Проект: SampleLight.eww
 Тип устройства: CoordinatorEB
-Defined symbols:
+Обязательные Defined symbols:
 AIRNANNY
 HAL_UART_ISR=2
 HAL_UART_DMA=1
@@ -32,7 +32,7 @@ HAL_UART_DMA=1
 Компиляция проекта для HVAC - Conditioner:
 Проект: SampleLight.eww
 Тип устройства: CoordinatorEB
-Defined symbols:
+Обязательные Defined symbols:
 xxAIRNANNY
 HAL_UART_ISR=2
 HAL_UART_DMA=0
@@ -40,21 +40,21 @@ HAL_UART_DMA=0
 Компиляция проекта для HVAC - Breezer:
 Проект: SampleLight.eww
 Тип устройства: RouterEB
-Defined symbols:
+Обязательные Defined symbols:
 xxATMEEX_HUMIDIFIER_ROUTER
 
 Компиляция проекта для HVAC - Humidifier:
 Проект: SampleLight.eww
 Тип устройства: RouterEB
-Defined symbols:
+Обязательные Defined symbols:
 ATMEEX_HUMIDIFIER_ROUTER
 
 Компиляция проекта для A7 и HVAC - Remote control:
 Проект: SampleSwitch.eww
 Тип устройства: EndDeviceEB
 
-
- 
+____
+# Для справки ниже приведена информация об изменениях в SDK
 
 Изменённые файлы SDK:
 1. Z-Stack_3.0.2\Components\hal\target\CC2530EB\_hal_uart_isr.c
