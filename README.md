@@ -19,12 +19,12 @@ ____
 
 Проект для пульта находится по следующему пути: Z-Stack 3.0.2\Projects\zstack\HomeAutomation\SampleSwitch\CC2530DB\SampleSwitch.eww
 ____
-Чтобы скомпилировать проект для отдельного устройства необходимо варьировать типами устройства (CoordinatorEB, RouterEB и EndDeviceEB) и Defined Symbols в Preprocessor (правой кнопкой на имя проекта ( например, SampleLight - CoordinatorEB) -> Options -> C/C++ Compiler -> Preprocessor -> Defined Symbols).
+Чтобы скомпилировать проект для отдельного устройства необходимо варьировать типами устройств (CoordinatorEB, RouterEB и EndDeviceEB) и Defined Symbols в Preprocessor (правой кнопкой на имя проекта (например, SampleLight - CoordinatorEB) -> Options -> C/C++ Compiler -> Preprocessor -> Defined Symbols).
 Для пультов от А7 и HVAC одна и та же прошивка.
 
 Компиляция проекта для `A7 - AIRNANNY`:
-- Проект: SampleLight.eww
-- Тип устройства: CoordinatorEB
+- Проект: **SampleLight.eww**
+- Тип устройства: **CoordinatorEB**
 - Обязательные Defined symbols:
 ```
 AIRNANNY
@@ -32,8 +32,8 @@ HAL_UART_ISR=2
 HAL_UART_DMA=1
 ```
 Компиляция проекта для `HVAC - Conditioner`:
-- Проект: SampleLight.eww
-- Тип устройства: CoordinatorEB
+- Проект: **SampleLight.eww**
+- Тип устройства: **CoordinatorEB**
 - Обязательные Defined symbols:
 ```
 xxAIRNANNY
@@ -41,23 +41,23 @@ HAL_UART_ISR=2
 HAL_UART_DMA=0
 ```
 Компиляция проекта для `HVAC - Breezer`:
-- Проект: SampleLight.eww
-- Тип устройства: RouterEB
+- Проект: **SampleLight.eww**
+- Тип устройства: **RouterEB**
 - Обязательные Defined symbols:
 ```
 xxATMEEX_HUMIDIFIER_ROUTER
 ```
 
 Компиляция проекта для `HVAC - Humidifier`:
-- Проект: SampleLight.eww
-- Тип устройства: RouterEB
+- Проект: **SampleLight.eww**
+- Тип устройства: **RouterEB**
 - Обязательные Defined symbols:
 ```
 ATMEEX_HUMIDIFIER_ROUTER
 ```
 Компиляция проекта для `A7 и HVAC - Remote control`:
-- Проект: SampleSwitch.eww
-- Тип устройства: EndDeviceEB
+- Проект: **SampleSwitch.eww**
+- Тип устройства: **EndDeviceEB**
 
 ____
 # Ниже, для справки, приведена информация об изменениях в SDK
@@ -95,7 +95,7 @@ uint16 cnt = 0;
 #endif
 ```
 ____
-2. В файле **Z-Stack_3.0.2\Components\hal\target\CC2530EB\**hal_sleep.c** в функции void halSleep( uint32 osal_timeout )
+2. В файле **Z-Stack_3.0.2\Components\hal\target\CC2530EB\hal_sleep.c** в функции void halSleep( uint32 osal_timeout )
 
 Было:
 ```
@@ -138,7 +138,7 @@ ____
   MAC_CHAN_11,                                /* logicalChannel */
 ```
 ____
-4. В файле Z-Stack_3.0.2\Components\stack\nwk\nwk_globals.c
+4. В файле **Z-Stack_3.0.2\Components\stack\nwk\nwk_globals.c**
 
 Было:
 ```
@@ -165,7 +165,7 @@ ____
 #define NWK_INDIRECT_CNT_RTG_TMR    1
 ```
 ____
-5. В файле Z-Stack_3.0.2\Components\stack\sys\ZGlobals.c
+5. В файле **Z-Stack_3.0.2\Components\stack\sys\ZGlobals.c**
 
 Было:
 ```
@@ -178,9 +178,9 @@ uint8 zgPreConfigKeys = FALSE;
 uint8 zgPreConfigKeys = TRUE;
 ```
 ____
-6. В файле Z-Stack_3.0.2\Projects\zstack\Tools\CC2530DB\f8wConfig.cfg множество изменений - просто заменить файл.
+6. В файле **Z-Stack_3.0.2\Projects\zstack\Tools\CC2530DB\f8wConfig.cfg** множество изменений - просто заменить файл.
 ____
-7. В файле Z-Stack_3.0.2\Projects\zstack\Tools\CC2530DB\f8wEndev.cfg
+7. В файле **Z-Stack_3.0.2\Projects\zstack\Tools\CC2530DB\f8wEndev.cfg**
 
 Было:
 ```
@@ -195,7 +195,7 @@ ____
 -DMAC_CFG_RX_MAX=9
 ```
 ____
-8. В файле Z-Stack_3.0.2\Projects\zstack\ZMain\TI2530DB\ZMain.c
+8. В файле **Z-Stack_3.0.2\Projects\zstack\ZMain\TI2530DB\ZMain.c**
 
 Было:
 ```
