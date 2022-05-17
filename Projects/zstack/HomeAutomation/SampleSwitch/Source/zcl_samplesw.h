@@ -61,21 +61,23 @@ extern "C"
 #define LIGHT_ON                        0x01
 
 // Events for the sample app
-#define SAMPLEAPP_END_DEVICE_REJOIN_EVT                0x01
-#define ATMEEX_UART_DATA_READY_SERIAL0                 0x02
-#define ATMEEX_UART_DATA_READY_SERIAL1                 0x04
-#define ATMEEX_POWER_SAVING_MODE_ON                    0x08
-#define ATMEEX_SET_DEFAULT_POLL_RATE_ON_START          0x10
-#define SAMPLESW_TOGGLE_TEST_EVT                       0x20
-#define SEND_GET_REQUEST                               0x40
-#define STOP_OTA_FOR_AVR_TIMER                         0x80
+#define SAMPLEAPP_END_DEVICE_REJOIN_EVT                0x0001
+#define ATMEEX_UART_DATA_READY_SERIAL0                 0x0002
+#define ATMEEX_UART_DATA_READY_SERIAL1                 0x0004
+#define ATMEEX_POWER_SAVING_MODE_ON                    0x0008
+#define ATMEEX_SET_DEFAULT_POLL_RATE_ON_START          0x0010
+#define SAMPLESW_TOGGLE_TEST_EVT                       0x0020
+#define SEND_GET_REQUEST                               0x0040
+#define STOP_OTA_FOR_AVR_TIMER                         0x0080
+#define SEND_VERSION_EVT                               0x0100
 
 #define SEND_MESSAGE_BY_BUTTONS_DELAY                  400
 #define SEND_MESSAGE_BY_MODE_BUTTON_DELAY              2500
-  
+
 #define OTA_STOP_DELAY                                 30000
 #define DELAY_BEFORE_SLEEP                             40
 
+#define SEND_VERSION_EVT_DELAY                         5000
 
   
 // UI Events

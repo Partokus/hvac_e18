@@ -143,7 +143,7 @@
 /* Version data */
 #define REMOTE_HEADER 0x02
 
-#define VERSION_HEADER 0x07
+#define VERSION_HEADER 0x06
 
 #define VERSION_MAJOR 0
 #define VERSION_MIDDLE 2
@@ -578,12 +578,8 @@ uint16 zclSampleSw_event_loop( uint8 task_id, uint16 events )
           {
             if (is_first_send_firmware_version) 
             {
-              uint8 lrc_t = MySerialApp_CalcLrc(&firmware_version[4], sizeof(firmware_version) - 6);
-              firmware_version[sizeof(firmware_version) - 1] = lrc_t;
-
-              SendData( &zclSampleSw_DstAddr, COMMAND_SEND, sizeof(firmware_version), firmware_version );
-              is_first_send_firmware_version = false;
-            }
+              osal_start_timerEx( zclSampleSw_TaskID, SEND_VERSION_EVT, SEND_VERSION_EVT_DELAY );
+            }  
             
             osal_set_event( zclSampleSw_TaskID, SEND_GET_REQUEST);
             NLME_SetPollRate(3000); // set poll rate 3 sec temporary
@@ -728,13 +724,17 @@ uint16 zclSampleSw_event_loop( uint8 task_id, uint16 events )
     osal_start_timerEx( zclSampleSw_TaskID, ATMEEX_POWER_SAVING_MODE_ON, DELAY_BEFORE_SLEEP);   
     return (events ^ STOP_OTA_FOR_AVR_TIMER);
   }
-  
-  
-  
-  
-  
-  
-  
+ 
+  if ( events & SEND_VERSION_EVT )
+  {
+    uint8 lrc_t = MySerialApp_CalcLrc(&firmware_version[4], sizeof(firmware_version) - 6);
+    firmware_version[sizeof(firmware_version) - 1] = lrc_t;
+    
+    SendData( &zclSampleSw_DstAddr, COMMAND_SEND, sizeof(firmware_version), firmware_version );
+    is_first_send_firmware_version = false;
+
+    return ( events ^ SEND_VERSION_EVT );
+  }
   
   
   
