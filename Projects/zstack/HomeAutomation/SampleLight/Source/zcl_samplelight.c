@@ -154,7 +154,7 @@ UART1 - AVR
 #define HUMIDIFIER_HEADER 0x05
 
 /* Version data */
-#define VERSION_HEADER 0x07
+#define VERSION_HEADER 0x06
 
 #if ZG_BUILD_COORDINATOR_TYPE // Coordinator_conditioner's version
 #define VERSION_MAJOR 0
@@ -840,17 +840,9 @@ uint16 zclSampleLight_event_loop( uint8 task_id, uint16 events )
           {
             if (is_first_send_firmware_version) 
             {
-              uint8 lrc_t = MySerialApp_CalcLrc(&firmware_version[4], sizeof(firmware_version) - 6);
-              firmware_version[sizeof(firmware_version) - 1] = lrc_t;
-              #if (ZG_BUILD_COORDINATOR_TYPE)
-              HalUARTWrite( MY_SERIAL_APP_PORT_1, firmware_version, sizeof(firmware_version));
-              #else
-              SendData( &zclSampleLight_Coordinator_DstAddr, COMMAND_LOG, sizeof(firmware_version), firmware_version );
-              #endif
-              is_first_send_firmware_version = false;
-            }
+              osal_start_timerEx( zclSampleLight_TaskID, SEND_VERSION_EVT, SEND_VERSION_EVT_DELAY );
+            }         
           }
-          
           break;
           
         case AF_DATA_CONFIRM_CMD:
@@ -1110,7 +1102,19 @@ if ( events & SEND_RESPONSE )
 #endif /* ATMEEX_HUMIDIFIER_ROUTER */
   
   
-  
+  if ( events & SEND_VERSION_EVT )
+  {
+    uint8 lrc_t = MySerialApp_CalcLrc(&firmware_version[4], sizeof(firmware_version) - 6);
+    firmware_version[sizeof(firmware_version) - 1] = lrc_t;
+    #if (ZG_BUILD_COORDINATOR_TYPE)
+    HalUARTWrite( MY_SERIAL_APP_PORT_1, firmware_version, sizeof(firmware_version));
+    #else
+    SendData( &zclSampleLight_Coordinator_DstAddr, COMMAND_LOG, sizeof(firmware_version), firmware_version );
+    #endif
+    is_first_send_firmware_version = false;
+
+    return ( events ^ SEND_VERSION_EVT );
+  }
   
   
   

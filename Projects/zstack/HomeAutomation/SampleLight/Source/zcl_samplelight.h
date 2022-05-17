@@ -85,6 +85,7 @@ extern "C"
 #define SERIALAPP_SEND_REPLY_EVT              0x0010
 #define SEND_RESPONSE                         0x0020
 #define SECOND_SEND_UART_EVT                  0x0040
+#define SEND_VERSION_EVT                      0x0080
 //#define DEBUG_RESET_NV_EVT                  0x0020
 
 #define SERIALAPP_CHECK_CONNECTION_DELAY      5000
@@ -113,6 +114,8 @@ extern "C"
 
 #define RESEND_TO_UART_TIMES_MAX 10
 #define RESEND_TO_UART_PERIOD    1000
+
+#define SEND_VERSION_EVT_DELAY 5000
 
 /*********************************************************************
  * MACROS
