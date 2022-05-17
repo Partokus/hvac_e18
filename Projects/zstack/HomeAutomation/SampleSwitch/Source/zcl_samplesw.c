@@ -140,6 +140,26 @@
 
 
 
+/* Version data */
+#define REMOTE_HEADER 0x02
+
+#define VERSION_HEADER 0x07
+
+#define VERSION_MAJOR 0
+#define VERSION_MIDDLE 2
+#define VERSION_MINOR 0
+
+
+// firmware version format packet: {0x70, 0x65, 0x00, 0x00, Number_of_data_bytes (from version_header to minor), version_header, type_of_device, major, middle, minor, LRC_of_data_bytes}
+static uint8 firmware_version[11] = {0x70, 0x65, 0x00, 0x00, 0x05, VERSION_HEADER, REMOTE_HEADER, VERSION_MAJOR, VERSION_MIDDLE, VERSION_MINOR, 0x00}; // Coordinator_conditioner's version packet
+
+static bool is_first_send_firmware_version = true;
+
+static uint8 MySerialApp_CalcLrc(uint8 *data, size_t dataSize);
+/* Version data end */
+
+
+
 
 #if (HAL_UART_DMA == 1) || (HAL_UART_ISR == 1)
 #define MY_SERIAL_APP_SERIAL_0
@@ -556,7 +576,15 @@ uint16 zclSampleSw_event_loop( uint8 task_id, uint16 events )
           (zclSampleLight_NwkState == DEV_ROUTER) ||
           (zclSampleLight_NwkState == DEV_END_DEVICE) )
           {
-            //atmeex_led_on();
+            if (is_first_send_firmware_version) 
+            {
+              uint8 lrc_t = MySerialApp_CalcLrc(&firmware_version[4], sizeof(firmware_version) - 6);
+              firmware_version[sizeof(firmware_version) - 1] = lrc_t;
+
+              SendData( &zclSampleSw_DstAddr, COMMAND_SEND, sizeof(firmware_version), firmware_version );
+              is_first_send_firmware_version = false;
+            }
+            
             osal_set_event( zclSampleSw_TaskID, SEND_GET_REQUEST);
             NLME_SetPollRate(3000); // set poll rate 3 sec temporary
             osal_start_timerEx(zclSampleSw_TaskID, ATMEEX_SET_DEFAULT_POLL_RATE_ON_START, 15000); // set default poll rate
@@ -1866,4 +1894,30 @@ void SendData( afAddrType_t *DstAddrPointer, uint8 cmd, uint8 dataBufLen, uint8 
     zcl_SendCommand(SAMPLESW_ENDPOINT, DstAddrPointer, ZCL_CLUSTER_ID_GEN_ON_OFF, cmd, TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, TRUE, 0, zclSampleSwSeqNum, dataBufLen, dataBufPointer);
   //  osal_mem_free( msgBuf );
   //}
+}
+
+/*********************************************************************
+
+ * @fn      MySerialApp_CalcLrc
+ *
+ * @brief   Calculating LRC
+ *
+ * @param   data - input buffer
+ *          dataSize - size of input buffer
+ *
+ * @return  none
+ */
+static uint8 MySerialApp_CalcLrc(uint8 *data, size_t dataSize)
+{
+    if (data == NULL || dataSize == 0)
+    {
+        return 0;
+    }
+
+    uint8 lrc = 0;
+    for (size_t n = 0; n < dataSize; ++n)
+    {
+        lrc ^= data[n];
+    }
+    return lrc;
 }
