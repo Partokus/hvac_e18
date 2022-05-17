@@ -148,9 +148,25 @@ UART1 - AVR
 
 #define APP_TITLE "TI Sample Light"
 
+#define BREEZER_HEADER 0x01
+#define REMOTE_HEADER 0x02
+#define CONDITIONEER_HEADER 0x04
+#define HUMIDIFIER_HEADER 0x05
 
+// firmware version format packet: {0x02, 0xB5, type_of_device, major, middle, minor}
+#if ZG_BUILD_COORDINATOR_TYPE
+static uint8 firmware_version[6] = {0x02, 0xB5, CONDITIONEER_HEADER, 0, 2, 1}; // Coordinator_conditioner's version
+#else
 
+#if ATMEEX_HUMIDIFIER_ROUTER
+static uint8 firmware_version[6] = {0x02, 0xB5, HUMIDIFIER_HEADER, 0, 2, 1}; // Router_humidifier's version
+#else
+static uint8 firmware_version[6] = {0x02, 0xB5, BREEZER_HEADER, 0, 2, 1}; // Router_breezer's version
+#endif
 
+#endif
+
+static bool is_first_send_firmware_version = true;
 
 #if (HAL_UART_DMA == 1) || (HAL_UART_ISR == 1)
 #define MY_SERIAL_APP_SERIAL_0
@@ -800,14 +816,15 @@ uint16 zclSampleLight_event_loop( uint8 task_id, uint16 events )
           (zclSampleLight_NwkState == DEV_ROUTER) ||
           (zclSampleLight_NwkState == DEV_END_DEVICE) )
           {
-            
+            if (is_first_send_firmware_version) 
+            {
           #if (ZG_BUILD_COORDINATOR_TYPE)
-          //atmeex_led_on();
+              HalUARTWrite( MY_SERIAL_APP_PORT_1, firmware_version, sizeof(firmware_version));
           #else
-          //NLME_PermitJoiningRequest(0); // permit child make this device own parent
-          //atmeex_led_on();
+              SendData( &zclSampleLight_Coordinator_DstAddr, COMMAND_LOG, sizeof(firmware_version), firmware_version );
           #endif
-          
+              is_first_send_firmware_version = false;
+            }
           }
           
           break;
@@ -1310,10 +1327,7 @@ static void zclSampleLight_BasicResetCB( void )
 
 
 
-#define BREEZER_HEADER 0x01
-#define REMOTE_HEADER 0x02
-#define CONDITIONEER_HEADER 0x04
-#define HUMIDIFIER_HEADER 0x05
+
 
 /* ATMEEX: data got callback */
 /*********************************************************************
