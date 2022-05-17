@@ -1186,7 +1186,7 @@ static void zclSampleLight_ProcessCommissioningStatus(bdbCommissioningModeMsg_t 
       if(bdbCommissioningModeMsg->bdbCommissioningStatus == BDB_COMMISSIONING_SUCCESS)
       {
         //After formation, perform nwk steering again plus the remaining commissioning modes that has not been process yet
-        bdb_StartCommissioning(BDB_COMMISSIONING_MODE_NWK_STEERING | bdbCommissioningModeMsg->bdbRemainingCommissioningModes);
+        bdb_StartCommissioning(bdbCommissioningModeMsg->bdbRemainingCommissioningModes);
       }
       else
       {
