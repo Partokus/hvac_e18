@@ -682,7 +682,7 @@ void zclSampleLight_Init( byte task_id )
 #if !AIRNANNY
   cleanupChildTableFxn();  
 #endif
-  
+
   
 #if (ZG_BUILD_COORDINATOR_TYPE)
  
