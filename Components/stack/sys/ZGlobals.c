@@ -266,7 +266,7 @@ uint16 zgApsMinDupRejTableSize = APS_DUP_REJ_ENTRIES;
 // If TRUE, preConfigKey should be configured on all devices on the network
 // If false, it is configured only on the coordinator and sent to other
 // devices upon joining.
-uint8 zgPreConfigKeys = TRUE;
+uint8 zgPreConfigKeys = FALSE;
 
 // The type of link key in use.  This will determine the security
 // policies associated with sending and receiving APS messages.
