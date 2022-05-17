@@ -153,20 +153,42 @@ UART1 - AVR
 #define CONDITIONEER_HEADER 0x04
 #define HUMIDIFIER_HEADER 0x05
 
-// firmware version format packet: {0x02, 0xB5, type_of_device, major, middle, minor}
+/* Version data */
+#define VERSION_HEADER 0x07
+
+#if ZG_BUILD_COORDINATOR_TYPE // Coordinator_conditioner's version
+#define VERSION_MAJOR 0
+#define VERSION_MIDDLE 2
+#define VERSION_MINOR 1
+#else
+
+#if ATMEEX_HUMIDIFIER_ROUTER // Router_humidifier's version
+#define VERSION_MAJOR 0
+#define VERSION_MIDDLE 2
+#define VERSION_MINOR 1
+#else // Router_breezer's version
+#define VERSION_MAJOR 0
+#define VERSION_MIDDLE 2
+#define VERSION_MINOR 1
+#endif
+
+#endif
+
+// firmware version format packet: {0x70, 0x65, 0x00, 0x00, Number_of_data_bytes (from version_header to minor), version_header, type_of_device, major, middle, minor, LRC_of_data_bytes}
 #if ZG_BUILD_COORDINATOR_TYPE
-static uint8 firmware_version[6] = {0x02, 0xB5, CONDITIONEER_HEADER, 0, 2, 1}; // Coordinator_conditioner's version
+static uint8 firmware_version[11] = {0x70, 0x65, 0x00, 0x00, 0x05, VERSION_HEADER, CONDITIONEER_HEADER, VERSION_MAJOR, VERSION_MIDDLE, VERSION_MINOR, 0x00}; // Coordinator_conditioner's version packet
 #else
 
 #if ATMEEX_HUMIDIFIER_ROUTER
-static uint8 firmware_version[6] = {0x02, 0xB5, HUMIDIFIER_HEADER, 0, 2, 1}; // Router_humidifier's version
+static uint8 firmware_version[11] = {0x70, 0x65, 0x00, 0x00, 0x05, VERSION_HEADER, HUMIDIFIER_HEADER, VERSION_MAJOR, VERSION_MIDDLE, VERSION_MINOR, 0x00}; // Router_humidifier's version packet
 #else
-static uint8 firmware_version[6] = {0x02, 0xB5, BREEZER_HEADER, 0, 2, 1}; // Router_breezer's version
+static uint8 firmware_version[11] = {0x70, 0x65, 0x00, 0x00, 0x05, VERSION_HEADER, BREEZER_HEADER, VERSION_MAJOR, VERSION_MIDDLE, VERSION_MINOR, 0x00}; // Router_breezer's version packet
 #endif
 
 #endif
 
 static bool is_first_send_firmware_version = true;
+/* Version data end */
 
 #if (HAL_UART_DMA == 1) || (HAL_UART_ISR == 1)
 #define MY_SERIAL_APP_SERIAL_0
@@ -412,11 +434,11 @@ static humidifierDataFormat_t humidifierData;
 
 static bool MySerialApp_GetPacket(packet_t *packet);
 static bool MySerialApp_ParceHumidData( uint8 *pBuf, size_t len );
-static uint8 MySerialApp_CalcLrc(uint8 *data, size_t dataSize);
+
 
 //static bool secret_light_on = 0; // secret light. 0 - off, 1 - on.
 #endif /* ATMEEX_HUMIDIFIER_ROUTER */
-
+static uint8 MySerialApp_CalcLrc(uint8 *data, size_t dataSize);
 
 
 
@@ -818,11 +840,13 @@ uint16 zclSampleLight_event_loop( uint8 task_id, uint16 events )
           {
             if (is_first_send_firmware_version) 
             {
-          #if (ZG_BUILD_COORDINATOR_TYPE)
+              uint8 lrc_t = MySerialApp_CalcLrc(&firmware_version[4], sizeof(firmware_version) - 6);
+              firmware_version[sizeof(firmware_version) - 1] = lrc_t;
+              #if (ZG_BUILD_COORDINATOR_TYPE)
               HalUARTWrite( MY_SERIAL_APP_PORT_1, firmware_version, sizeof(firmware_version));
-          #else
+              #else
               SendData( &zclSampleLight_Coordinator_DstAddr, COMMAND_LOG, sizeof(firmware_version), firmware_version );
-          #endif
+              #endif
               is_first_send_firmware_version = false;
             }
           }
@@ -3114,11 +3138,8 @@ static bool MySerialApp_ParceHumidData( uint8 *pBuf, size_t len )
 }
 
 
-
-
-
-
-
+#endif /*ATMEEX_HUMIDIFIER_ROUTER*/
+#endif /*ZG_BUILD_JOINING_TYPE*/
 /*********************************************************************
 
  * @fn      MySerialApp_CalcLrc
@@ -3144,11 +3165,6 @@ static uint8 MySerialApp_CalcLrc(uint8 *data, size_t dataSize)
     }
     return lrc;
 }
-
-
-#endif /*ATMEEX_HUMIDIFIER_ROUTER*/
-#endif /*ZG_BUILD_JOINING_TYPE*/
-
 /*
 #if !(ZG_BUILD_JOINING_TYPE)
 void sendPairAccept( void )
