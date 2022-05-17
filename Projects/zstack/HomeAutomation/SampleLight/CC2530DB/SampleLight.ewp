@@ -307,9 +307,10 @@
                     <name>CCDefines</name>
                     <state>HAL_PA_LNA</state>
                     <state>xxHAL_PA_LNA_CC2592</state>
-                    <state>AIRNANNY</state>
+                    <state>xxAIRNANNY</state>
+                    <state>PAIRING_ON_COMMAND</state>
                     <state>HAL_UART_ISR=2</state>
-                    <state>HAL_UART_DMA=1</state>
+                    <state>HAL_UART_DMA=0</state>
                     <state>HAL_UART=TRUE</state>
                     <state>HAL_UART_ISR_RX_MAX=90</state>
                     <state>HAL_UART_DMA_RX_MAX=90</state>
