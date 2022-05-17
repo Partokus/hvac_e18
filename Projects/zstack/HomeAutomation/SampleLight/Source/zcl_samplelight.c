@@ -2594,13 +2594,13 @@ static void setPANID( uint8 port, uint16 PANID )
 }
 
 
-// enable joining in nwk for 180 sec (for coorinator ?and router?)
+// enable joining in nwk for 180 sec
 static void enableJoiningInNwk( void )
 {
   bdb_StartCommissioning(BDB_COMMISSIONING_MODE_NWK_STEERING); 
 }
 
-// enable joining in nwk for 180 sec (for coorinator ?and router?)
+// disable joining in nwk
 static void permitJoiningInNwk( void )
 {
   bdb_StartCommissioning(BDB_COMMISSIONING_MODE_IDDLE); 
