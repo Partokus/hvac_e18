@@ -168,27 +168,27 @@ ____
 ____
 5. В файле **Z-Stack_3.0.2\Components\stack\sys\ZGlobals.c**
 
-Was:
+Было:
 ```
 // devices upon joining.
 uint8 zgPreConfigKeys = FALSE;
 ```
-Became (for sniffer):
+Стало (для сниффинга):
 ```
 // devices upon joining.
 uint8 zgPreConfigKeys = TRUE;
 ```
-Became again:
+Снова стало:
 ```
 // devices upon joining.
 uint8 zgPreConfigKeys = FALSE;
 ```
-Was:
+Было:
 ```
 // Maximum msgs to hold per associated device.
 #define NWK_INDIRECT_MSG_MAX_PER    3
 ```
-Became:
+Стало:
 ```
 // Maximum msgs to hold per associated device.
 #define NWK_INDIRECT_MSG_MAX_PER    6
