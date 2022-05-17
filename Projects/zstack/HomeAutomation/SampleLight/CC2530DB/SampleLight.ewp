@@ -308,7 +308,7 @@
                     <state>HAL_PA_LNA</state>
                     <state>xxHAL_PA_LNA_CC2592</state>
                     <state>xxAIRNANNY</state>
-                    <state>PAIRING_ON_COMMAND</state>
+                    <state>xxPAIRING_ON_COMMAND</state>
                     <state>HAL_UART_ISR=2</state>
                     <state>HAL_UART_DMA=0</state>
                     <state>HAL_UART=TRUE</state>
