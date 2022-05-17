@@ -96,7 +96,7 @@
 // #define CNT_RTG_TIMER            60
 // #define NWK_INDIRECT_MSG_TIMEOUT (30 * 24 * 60)
 // Maximum msgs to hold per associated device.
-#define NWK_INDIRECT_MSG_MAX_PER    3
+#define NWK_INDIRECT_MSG_MAX_PER    6
 // Maximum total msgs to hold for all associated devices.
 #define NWK_INDIRECT_MSG_MAX_ALL    \
                             (NWK_MAX_DATABUFS_TOTAL - NWK_INDIRECT_MSG_MAX_PER)
