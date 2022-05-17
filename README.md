@@ -178,6 +178,21 @@ uint8 zgPreConfigKeys = FALSE;
 // devices upon joining.
 uint8 zgPreConfigKeys = TRUE;
 ```
+РЎРЅРѕРІР° СЃС‚Р°Р»Рѕ:
+```
+// devices upon joining.
+uint8 zgPreConfigKeys = FALSE;
+```
+Р‘С‹Р»Рѕ:
+```
+// Maximum msgs to hold per associated device.
+#define NWK_INDIRECT_MSG_MAX_PER    3
+```
+РЎС‚Р°Р»Рѕ:
+```
+// Maximum msgs to hold per associated device.
+#define NWK_INDIRECT_MSG_MAX_PER    6
+```
 ____
 6. В файле **Z-Stack_3.0.2\Projects\zstack\Tools\CC2530DB\f8wConfig.cfg** множество изменений - просто заменить файл.
 ____
