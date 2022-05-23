@@ -727,11 +727,10 @@ uint16 zclSampleSw_event_loop( uint8 task_id, uint16 events )
  
   if ( events & SEND_VERSION_EVT )
   {
-    uint8 lrc_t = MySerialApp_CalcLrc(&firmware_version[4], sizeof(firmware_version) - 6);
+    uint8 lrc_t = MySerialApp_CalcLrc(&firmware_version[5], sizeof(firmware_version) - 6);
     firmware_version[sizeof(firmware_version) - 1] = lrc_t;
     
     SendData( &zclSampleSw_DstAddr, COMMAND_SEND, sizeof(firmware_version), firmware_version );
-    is_first_send_firmware_version = false;
 
     return ( events ^ SEND_VERSION_EVT );
   }

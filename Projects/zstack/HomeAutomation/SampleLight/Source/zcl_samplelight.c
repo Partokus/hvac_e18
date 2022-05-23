@@ -169,7 +169,7 @@ UART1 - AVR
 #else // Router_breezer's version
 #define VERSION_MAJOR 0
 #define VERSION_MIDDLE 2
-#define VERSION_MINOR 1
+#define VERSION_MINOR 2
 #endif
 
 #endif
@@ -263,9 +263,7 @@ static uint16 MySerialApp_LastPanId;
 /* COMMANDS */
 const uint8 headerArr[] = {
   0x02, 0xA8, 0x79, 0xC3
-};
-
-
+}; 
 
 enum
 {
@@ -274,7 +272,8 @@ enum
   SET_PANID                 = 4,
   READ_PANID                = 5,
   ENABLE_JOINING_IN_NWK     = 6, // for Coordinator ?and router?. Enable joining in network for 180 sec
-  PERMIT_JOINING_IN_NWK     = 7  // permit joining in nwk
+  PERMIT_JOINING_IN_NWK     = 7,  // permit joining in nwk
+  MY_SYSTEM_RESET           = 8
 };
 
 #define NUM_OF_ELEMENTS(x) ( sizeof(x) / sizeof(x[0]) )
@@ -1104,7 +1103,7 @@ if ( events & SEND_RESPONSE )
   
   if ( events & SEND_VERSION_EVT )
   {
-    uint8 lrc_t = MySerialApp_CalcLrc(&firmware_version[4], sizeof(firmware_version) - 6);
+    uint8 lrc_t = MySerialApp_CalcLrc(&firmware_version[5], sizeof(firmware_version) - 6);
     firmware_version[sizeof(firmware_version) - 1] = lrc_t;
     #if (ZG_BUILD_COORDINATOR_TYPE)
     HalUARTWrite( MY_SERIAL_APP_PORT_1, firmware_version, sizeof(firmware_version));
@@ -2507,10 +2506,7 @@ static bool processCommand( uint8* pBuf, uint8 len, uint8 port )
     break;
     
   case SET_PANID:
-   // if (len > headerSize + 2)
-  //  {
       setPANID(port, pBuf[headerSize + 1] << 8 | pBuf[headerSize + 2]);
-  //  }
     break;
     
   case READ_PANID:
@@ -2522,7 +2518,11 @@ static bool processCommand( uint8* pBuf, uint8 len, uint8 port )
     break;
     
   case PERMIT_JOINING_IN_NWK:
-    permitJoiningInNwk();
+    permitJoiningInNwk(); // don't work
+    break;
+    
+  case MY_SYSTEM_RESET:
+    SystemReset();
     break;
     
   default:
@@ -2647,8 +2647,6 @@ static void permitJoiningInNwk( void )
 {
   bdb_StartCommissioning(BDB_COMMISSIONING_MODE_IDDLE); 
 }
-
-
 
 
 
