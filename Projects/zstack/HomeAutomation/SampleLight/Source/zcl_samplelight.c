@@ -97,6 +97,7 @@
    
 #include "bdb.h"
 #include "bdb_interface.h"
+#include "ZDProfile.h"
 
  //GP_UPDATE
 #include "gp_interface.h"
@@ -2645,7 +2646,11 @@ static void enableJoiningInNwk( void )
 // disable joining in nwk
 static void permitJoiningInNwk( void )
 {
-  bdb_StartCommissioning(BDB_COMMISSIONING_MODE_IDDLE); 
+  zAddrType_t dstAddr;
+  dstAddr.addr.shortAddr = NWK_BROADCAST_SHORTADDR_DEVZCZR;
+  dstAddr.addrMode = AddrBroadcast;
+  // Trust Center significance is always true
+  ZDP_MgmtPermitJoinReq( &dstAddr, 0, TRUE, TRUE ); // comissioning time is zero 
 }
 
 
