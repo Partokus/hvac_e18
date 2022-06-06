@@ -146,7 +146,7 @@
 #define VERSION_HEADER 0x06
 
 #define VERSION_MAJOR 0
-#define VERSION_MIDDLE 2
+#define VERSION_MIDDLE 3
 #define VERSION_MINOR 0
 
 

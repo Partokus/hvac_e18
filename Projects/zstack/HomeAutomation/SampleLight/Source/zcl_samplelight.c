@@ -160,17 +160,17 @@ UART1 - AVR
 #if ZG_BUILD_COORDINATOR_TYPE // Coordinator_conditioner's version
 #define VERSION_MAJOR 0
 #define VERSION_MIDDLE 2
-#define VERSION_MINOR 1
+#define VERSION_MINOR 0
 #else
 
 #if ATMEEX_HUMIDIFIER_ROUTER // Router_humidifier's version
 #define VERSION_MAJOR 0
 #define VERSION_MIDDLE 2
-#define VERSION_MINOR 1
+#define VERSION_MINOR 0
 #else // Router_breezer's version
 #define VERSION_MAJOR 0
 #define VERSION_MIDDLE 2
-#define VERSION_MINOR 2
+#define VERSION_MINOR 0
 #endif
 
 #endif
@@ -348,7 +348,6 @@ uint8 resend_to_uart_times = 0; // repit send to uart
 //uint8 humidifier_error = 0;
 uint8 second_uart_send_buffer[25];
 static bool MySerialApp_PairingState = false;
-static bool MySerialApp_PairingState_2 = 0;
 static uint16 MySerialApp_PanId = 0;
 static uint8 MySerialApp_RestartCounter = 0;
 static uint8 sendPairingReq[] = {0x70, 0x65, 0x66, 0x57, 0x06, 'C', 'M', 'D', 0x00, 0x00, 0x05, 0x4F};
@@ -724,8 +723,8 @@ void zclSampleLight_Init( byte task_id )
   
 #if (ZG_BUILD_COORDINATOR_TYPE)
  
-#if PAIRING_ON_COMMAND
-  bdb_StartCommissioning(/*BDB_COMMISSIONING_MODE_NWK_STEERING |*/ BDB_COMMISSIONING_MODE_NWK_FORMATION);
+#if PAIRING_WITH_BUTTON
+  bdb_StartCommissioning(BDB_COMMISSIONING_MODE_NWK_FORMATION);
 #else
   bdb_StartCommissioning(BDB_COMMISSIONING_MODE_NWK_STEERING | BDB_COMMISSIONING_MODE_NWK_FORMATION);
 #endif
@@ -1037,7 +1036,6 @@ if ( events & SEND_RESPONSE )
       SendData( &zclSampleLight_Coordinator_DstAddr, COMMAND_SEND, sizeof(sendPairingReq), sendPairingReq );
       MySerialApp_RestartCounter = 0;
       MySerialApp_PairingState = false;
-      MySerialApp_PairingState_2 = true;
       osal_nv_write( NV_SERIALAPP_PAIRING_STATE, 0, sizeof(MySerialApp_PairingState), &MySerialApp_PairingState );
       osal_nv_write( NV_SERIALAPP_RESTART_COUNTER, 0, sizeof(MySerialApp_RestartCounter), &MySerialApp_RestartCounter );
     } 
@@ -1112,7 +1110,6 @@ if ( events & SEND_RESPONSE )
     SendData( &zclSampleLight_Coordinator_DstAddr, COMMAND_LOG, sizeof(firmware_version), firmware_version );
     #endif
     is_first_send_firmware_version = false;
-
     return ( events ^ SEND_VERSION_EVT );
   }
   
